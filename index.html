@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NightShift Buddy</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            margin: 20px auto;
+            width: 300px;
+            border-radius: 10px;
+        }
+        input {
+            padding: 10px;
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>NightShift Buddy</h1>
+<p>Fatigue-Aware Assistant</p>
+
+<div class="card">
+    <h2>Fatigue Check</h2>
+    <button onclick="checkFatigue('low')">😊 Low</button>
+    <button onclick="checkFatigue('medium')">😐 Medium</button>
+    <button onclick="checkFatigue('high')">😴 High</button>
+    <p id="fatigueResult"></p>
+</div>
+
+<div class="card">
+    <h2>Task / Handoff Board</h2>
+    <input id="taskInput" placeholder="Enter task">
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+function checkFatigue(level) {
+    let msg = "";
+    if (level === "low") msg = "You're good to go!";
+    if (level === "medium") msg = "Take a short break.";
+    if (level === "high") msg = "⚠️ Alert! Please rest or inform supervisor.";
+    
+    document.getElementById("fatigueResult").innerText = msg;
+}
+
+function addTask() {
+    let task = document.getElementById("taskInput").value;
+    if (task === "") return;
+
+    let li = document.createElement("li");
+    li.innerText = task;
+
+    li.onclick = function() {
+        li.style.textDecoration = "line-through";
+    };
+
+    document.getElementById("taskList").appendChild(li);
+    document.getElementById("taskInput").value = "";
+}
+</script>
+
+</body>
+</html>
