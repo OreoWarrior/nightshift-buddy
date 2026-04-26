@@ -192,13 +192,9 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
 .sday-off{background:var(--surface2);border:0.5px solid var(--border)}
 .sday-today{background:var(--teal);color:#fff;border:none}
 
-.edit-profile-btn{width:100%;padding:11px;border-radius:10px;background:var(--surface);border:0.5px solid var(--border2);font-family:var(--mono);font-size:12px;color:var(--muted);cursor:pointer;transition:all 0.13s;letter-spacing:0.03em}
-.edit-profile-btn:hover{background:var(--surface2);color:var(--ink)}
-
 /* ABOUT US PAGE */
 .about-us-hero{background:var(--surface);border:0.5px solid var(--border2);border-radius:14px;padding:24px;margin-bottom:14px;text-align:center}
-.au-avatar{width:100px;height:100px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600;font-family:var(--mono);color:#fff;margin:0 auto 16px;overflow:hidden;object-fit:cover}
-.au-avatar img{width:100%;height:100%;object-fit:cover}
+.au-avatar{width:100px;height:100px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600;font-family:var(--mono);color:#fff;margin:0 auto 16px}
 .au-name{font-size:22px;font-weight:600;color:var(--ink);margin-bottom:4px}
 .au-title{font-size:13px;color:var(--teal);margin-bottom:12px;font-family:var(--mono)}
 .au-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:12px}
@@ -373,4 +369,257 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
           <div class="sg-h">Thu</div><div class="sg-h">Fri</div><div class="sg-h">Sat</div><div class="sg-h">Sun</div>
           <div class="sg-n">You</div>
           <div class="sc sc-n sc-you" data-shift="N" onclick="cycleShift(this)">N</div><div class="sc sc-n sc-you" data-shift="N" onclick="cycleShift(this)">N</div><div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div>
-          <div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div><div class="sc sc-d sc-you" data-shift="D" onclick="cycleShift(this)">D</div><div class="sc sc-d sc-you" data-shift="D" onclick="cycleShift(this)">D</div><div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div>\n          <div class="sg-n" style="font-size:10px;color:var(--muted)\">Priya</div>\n          <div class="sc sc-d\">D</div><div class=\"sc sc-o\">—</div><div class=\"sc sc-n\">N</div>\n          <div class=\"sc sc-n\">N</div><div class=\"sc sc-o\">—</div><div class=\"sc sc-e\">E</div><div class=\"sc sc-e\">E</div>\n          <div class=\"sg-n\" style=\"font-size:10px;color:var(--muted)\">Marcus</div>\n          <div class=\"sc sc-o\">—</div><div class=\"sc sc-e\">E</div><div class=\"sc sc-e\">E</div>\n          <div class=\"sc sc-o\">—</div><div class=\"sc sc-n\">N</div><div class=\"sc sc-o\">—</div><div class=\"sc sc-d\">D</div>\n          <div class=\"sg-n\" style=\"font-size:10px;color:var(--muted)\">Chen</div>\n          <div class=\"sc sc-e\">E</div><div class=\"sc sc-d\">D</div><div class=\"sc sc-o\">—</div>\n          <div class=\"sc sc-e\">E</div><div class=\"sc sc-o\">—</div><div class=\"sc sc-n\">N</div><div class=\"sc sc-n\">N</div>\n        </div>\n        <div class=\"legend\">\n          <span><div class=\"lsq\" style=\"background:var(--teal-bg);border:0.5px solid rgba(13,158,124,0.3)\"></div>Night</span>\n          <span><div class=\"lsq\" style=\"background:var(--blue-bg);border:0.5px solid rgba(21,101,192,0.3)\"></div>Day</span>\n          <span><div class=\"lsq\" style=\"background:var(--purple-bg);border:0.5px solid rgba(107,33,168,0.2)\"></div>Evening</span>\n          <span><div class=\"lsq\" style=\"background:var(--surface2);border:0.5px solid var(--border)\"></div>Off</span>\n        </div>\n      </div>\n      <div class=\"sleep-card\">\n        <div class=\"sleep-head\">Sleep planning · your next night shift (Tue)</div>\n        <div class=\"sleep-item\">Today (Mon off) → <strong>Sleep 10 PM – 6 AM</strong> to anchor your circadian rhythm</div>\n        <div class=\"sleep-item\">Tue pre-shift nap → <strong>14:00 – 16:00</strong> recommended. Avoid caffeine after 20:00</div>\n        <div class=\"sleep-item\">Wed recovery → <strong>Sleep 08:00 – 15:00</strong> before returning to day pattern</div>\n      </div>\n    </div>\n\n    <!-- ═══ PEER SUPPORT ═══ -->\n    <div class=\"panel\" id=\"panel-peers\">\n      <div class=\"peer-tabs\">\n        <button class=\"peer-tab on\" onclick=\"peerTab('ai',this)\">AI Support</button>\n      </div>\n\n      <!-- AI SUPPORT -->\n      <div class=\"peer-section on\" id=\"ps-ai\">\n        <div class=\"chat-window\">\n          <div class=\"chat-header\">\n            <div class=\"chat-av\">🤖</div>\n            <div style=\"flex:1\">\n              <div class=\"chat-title\">AI Support (Mental Support)</div>\n              <div class=\"chat-subtitle\">Private · Safe · Non-judgmental</div>\n            </div>\n            <div class=\"pill pill-teal\" style=\"font-size:10px\">AI</div>\n          </div>\n          <div class=\"chat-messages\" id=\"ai-msgs\">\n            <div class=\"msg msg-ai\">\n              Hey, I'm your NightShift support companion. I'm here to listen, help you decompress, or talk through anything that's weighing on you during your shift. How are you feeling right now?\n              <div class=\"msg-time\">now</div>\n            </div>\n          </div>\n          <div class=\"typing\" id=\"ai-typing\">\n            <div class=\"typing-dot\"></div>\n            <div class=\"typing-dot\"></div>\n            <div class=\"typing-dot\"></div>\n          </div>\n          <div class=\"quick-replies\" id=\"quick-replies\">\n            <button class=\"qr\" onclick=\"sendQR(this)\">I'm exhausted</button>\n            <button class=\"qr\" onclick=\"sendQR(this)\">Stressful patient situation</button>\n            <button class=\"qr\" onclick=\"sendQR(this)\">Feeling isolated</button>\n            <button class=\"qr\" onclick=\"sendQR(this)\">Need a pep talk</button>\n          </div>\n          <div class=\"chat-input-bar\">\n            <input class=\"chat-input\" id=\"ai-input\" placeholder=\"Tell me how you're doing...\" onkeydown=\"if(event.key==='Enter')sendAI()\">\n            <button class=\"send-btn\" onclick=\"sendAI()\">\n              <svg viewBox=\"0 0 24 24\"><path d=\"M2 21l21-9L2 3v7l15 2-15 2z\"/></svg>\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <!-- ═══ ABOUT ME ═══ -->\n    <div class=\"panel\" id=\"panel-about\">\n      <div class=\"about-hero\">\n        <div>\n          <div class=\"about-name\" id=\"profile-name\" onclick=\"openNameEdit()\">Alex Johnson</div>\n          <div class=\"about-role\" id=\"profile-role\" onclick=\"openRoleEdit()\">Registered Nurse · Ward 4B</div>\n          <div class=\"about-badges\">\n            <span class=\"badge badge-teal\" onclick=\"editBadge(0)\">Night shift</span>\n            <span class=\"badge badge-blue\" onclick=\"editBadge(1)\">3 yrs experience</span>\n            <span class=\"badge badge-amber\" onclick=\"editBadge(2)\">ICU trained</span>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"about-grid\">\n        <div class=\"about-card\">\n          <div class=\"about-card-head\">Shift stats</div>\n          <div class=\"about-row\"><div class=\"about-lbl\">Shifts this month</div><div class=\"about-val\" onclick=\"editStat(0, 'Shifts this month')\">12</div></div>\n          <div class=\"about-row\"><div class=\"about-lbl\">Night shifts</div><div class=\"about-val\" onclick=\"editStat(1, 'Night shifts')\">9</div></div>\n          <div class=\"about-row\"><div class=\"about-lbl\">Avg fatigue score</div><div class=\"about-val\" style=\"color:var(--teal)\" onclick=\"editStat(2, 'Avg fatigue score')\">3.2</div></div>\n          <div class=\"about-row\" style=\"border:none\"><div class=\"about-lbl\">Check-in streak</div><div class=\"about-val\" style=\"color:var(--green)\" onclick=\"editStat(3, 'Check-in streak')\">7 days</div></div>\n        </div>\n        <div class=\"about-card\">\n          <div class=\"about-card-head\">Custom Settings</div>\n          <div class=\"about-toggle-row\">\n            <div class=\"about-toggle-lbl\">Break reminders</div>\n            <div class=\"toggle-switch on\" onclick=\"toggleSetting(this)\">\n              <div class=\"toggle-slider\"></div>\n            </div>\n          </div>\n          <div class=\"about-toggle-row\">\n            <div class=\"about-toggle-lbl\">Fatigue alerts</div>\n            <div class=\"toggle-switch on\" onclick=\"toggleSetting(this)\">\n              <div class=\"toggle-slider\"></div>\n            </div>\n          </div>\n          <div class=\"about-toggle-row\" style=\"border:none\">\n            <div class=\"about-toggle-lbl\">AI support</div>\n            <div class=\"toggle-switch on\" onclick=\"toggleSetting(this)\">\n              <div class=\"toggle-slider\"></div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"streak-bar\">\n        <div class=\"card-head\">Check-in streak · last 7 days</div>\n        <div class=\"streak-days\">\n          <div class=\"sday sday-on\">M</div>\n          <div class=\"sday sday-on\">T</div>\n          <div class=\"sday sday-on\">W</div>\n          <div class=\"sday sday-on\">T</div>\n          <div class=\"sday sday-off\">F</div>\n          <div class=\"sday sday-on\">S</div>\n          <div class=\"sday sday-today\">S</div>\n        </div>\n      </div>\n    </div>\n\n    <!-- ═══ ABOUT US ═══ -->\n    <div class=\"panel\" id=\"panel-aboutus\">\n      <div class=\"about-us-hero\">\n        <div class=\"au-avatar\">🎨</div>\n        <div class=\"au-name\">Oreo Warrior</div>\n        <div class=\"au-title\">Creator & Developer</div>\n        <div class=\"au-desc\">Passionate about building tools that support healthcare workers during challenging night shifts. Dedicated to creating intuitive, human-centered solutions for mental wellness and fatigue management.</div>\n        <div class=\"au-social\">\n          <a href=\"https://github.com/OreoWarrior\" target=\"_blank\">GitHub</a>\n          <a href=\"mailto:contact@nightshift.dev\">Email</a>\n        </div>\n      </div>\n\n      <div class=\"au-section\">\n        <div class=\"au-section-title\">About NightShift Buddy</div>\n        <div class=\"au-feature\">\n          <div class=\"au-feature-title\">💡 Why it exists</div>\n          <div class=\"au-feature-desc\">Night shift workers face unique challenges: fatigue, isolation, and mental health struggles. NightShift Buddy was built to provide immediate, compassionate support right at your fingertips.</div>\n        </div>\n        <div class=\"au-feature\">\n          <div class=\"au-feature-title\">🎯 Core features</div>\n          <div class=\"au-feature-desc\">Fatigue tracking, AI mental wellness support, handoff management, and smart scheduling tools — all designed with healthcare workers in mind.</div>\n        </div>\n        <div class=\"au-feature\">\n          <div class=\"au-feature-title\">❤️ Our mission</div>\n          <div class=\"au-feature-desc\">To reduce fatigue-related errors, prevent burnout, and foster a culture of mental wellness in healthcare. You deserve support. You are not alone.</div>\n        </div>\n      </div>\n\n      <div class=\"au-section\">\n        <div class=\"au-section-title\">Built with</div>\n        <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px\">\n          <div class=\"au-feature\">\n            <div class=\"au-feature-title\">HTML5 & CSS3</div>\n            <div class=\"au-feature-desc\">Modern, responsive design</div>\n          </div>\n          <div class=\"au-feature\">\n            <div class=\"au-feature-title\">Vanilla JavaScript</div>\n            <div class=\"au-feature-desc\">Fast, lightweight interactions</div>\n          </div>\n          <div class=\"au-feature\">\n            <div class=\"au-feature-title\">AI Support</div>\n            <div class=\"au-feature-desc\">Mock responses for wellness</div>\n          </div>\n          <div class=\"au-feature\">\n            <div class=\"au-feature-title\">Mobile First</div>\n            <div class=\"au-feature-desc\">Works everywhere you are</div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </div>\n</div>\n\n<!-- EDIT MODALS -->\n<div class=\"modal-overlay\" id=\"edit-modal\" onclick=\"if(event.target===this)closeModal()\">\n  <div class=\"modal\">\n    <div class=\"modal-head\" id=\"modal-title\">Edit</div>\n    <div class=\"modal-field\">\n      <label class=\"modal-label\" id=\"modal-label\">Value</label>\n      <input class=\"modal-input\" id=\"modal-input\" type=\"text\">\n    </div>\n    <div class=\"modal-actions\">\n      <button class=\"btn primary\" style=\"flex:1\" onclick=\"saveEdit()\">Save</button>\n      <button class=\"btn\" onclick=\"closeModal()\">Cancel</button>\n    </div>\n  </div>\n</div>\n\n<script>\nconst aiMockResponses=[\n  \"That sounds really tough. You're carrying a lot right now, and it's completely valid to feel the weight of it. Take a moment — you've got this.\",\n  \"I hear you. Night shifts test us in ways most people don't understand. You're doing important work and it matters.\",\n  \"It's okay to feel overwhelmed sometimes. One breath at a time. You're stronger than you think.\",\n  \"Fatigue is real and your body is sending you signals. Listen to it. A short break might help more than you realize.\",\n  \"You're not alone in this. What you're feeling is shared by so many healthcare workers. Your wellbeing matters.\",\n  \"Let's break this down — is there one thing you can do right now to take care of yourself, even something small?\",\n  \"You're doing incredible work. Sometimes we just need to acknowledge how hard this is. How can I support you right now?\",\n  \"Night shifts have a way of isolating us. Remember that your crew is there, and so am I. What's on your mind?\",\n  \"Stress and fatigue go together, especially in your role. You're handling it with real courage.\",\n  \"It's brave of you to reach out. Let's talk through what's weighing on you — I'm right here with you.\"\n];\n\nlet editMode='',editIdx=0;\n\n// ── CLOCK\nfunction tick(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||12;document.getElementById('clock').textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}\ntick();setInterval(tick,30000);\n\n// ── TABS\nfunction tab(name,btn){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('panel-'+name).classList.add('on');}\n\n// ── PEER TABS\nfunction peerTab(name,btn){document.querySelectorAll('.peer-tab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.peer-section').forEach(s=>s.classList.remove('on'));btn.classList.add('on');document.getElementById('ps-'+name).classList.add('on');}\n\n// ── FATIGUE\nfunction calc(){const e=+document.getElementById('sl-e').value;const f=+document.getElementById('sl-f').value;const s=+document.getElementById('sl-s').value;document.getElementById('sv-e').textContent=e;document.getElementById('sv-f').textContent=f;document.getElementById('sv-s').textContent=s;const score=parseFloat(((10-e)*0.4+(10-f)*0.35+s*0.25).toFixed(1));document.getElementById('score-big').textContent=score;document.getElementById('gfill').style.width=Math.min(score*10,100)+'%';const tag=document.getElementById('status-tag');const big=document.getElementById('score-big');const al=document.getElementById('alert-strip');const fill=document.getElementById('gfill');if(score<5){tag.className='status-tag s-ok';tag.textContent='Within safe range';big.style.color='var(--teal)';fill.style.background='var(--teal)';al.classList.remove('show');}else if(score<7){tag.className='status-tag s-warn';tag.textContent='Monitoring advised';big.style.color='var(--amber)';fill.style.background='var(--amber)';al.classList.remove('show');}else{tag.className='status-tag s-crit';tag.textContent='Break recommended';big.style.color='var(--red)';fill.style.background='var(--red)';al.classList.add('show');}}\nfunction logCheckin(btn){btn.textContent='Logged ✓';btn.style.background='#2e7d32';btn.style.borderColor='#2e7d32';setTimeout(()=>{btn.textContent='Log check-in';btn.style.background='';btn.style.borderColor='';},2500);}\n\n// ── HANDOFF\nfunction toggleTask(el){el.classList.toggle('ch-done');if(!el.classList.contains('ch-done')){el.classList.add(el.textContent.includes('recheck')?'ch-urg':'ch-pend');}else{el.classList.remove('ch-urg','ch-pend');}}\nfunction addNote(){const n=prompt('Add handoff note:');if(n)alert('✓ Note added');}\nfunction markAllDone(){document.querySelectorAll('.chip').forEach(c=>{c.classList.add('ch-done');c.classList.remove('ch-urg','ch-pend');});alert('✓ All marked reviewed');}\n\n// ── SCHEDULE\nfunction cycleShift(el){const cycle=['N','D','E','O'];let idx=cycle.indexOf(el.dataset.shift||'O');let next=cycle[(idx+1)%4];el.dataset.shift=next;el.textContent=next==='O'?'—':next;el.className='sc sc-you';el.classList.add('sc-'+next.toLowerCase());}\n\n// ── AI\nfunction callAI(msg){document.getElementById('ai-typing').classList.add('show');const msgs=document.getElementById('ai-msgs');msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>{document.getElementById('ai-typing').classList.remove('show');const r=aiMockResponses[Math.floor(Math.random()*10)];msgs.innerHTML+=`<div class=\"msg msg-ai\">${esc(r)}<div class=\"msg-time\">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;},1000+Math.random()*500);}\nfunction sendAI(){const inp=document.getElementById('ai-input');const txt=inp.value.trim();if(!txt)return;inp.value='';document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class=\"msg msg-user\">${esc(txt)}<div class=\"msg-time\">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(txt);}\nfunction sendQR(btn){document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class=\"msg msg-user\">${esc(btn.textContent)}<div class=\"msg-time\">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(btn.textContent);}\n\n// ── TOGGLE\nfunction toggleSetting(el){el.classList.toggle('on');}\n\n// ── MODALS\nfunction openNameEdit(){editMode='name';document.getElementById('modal-title').textContent='Edit name';document.getElementById('modal-label').textContent='Full name';document.getElementById('modal-input').value=document.getElementById('profile-name').textContent;document.getElementById('edit-modal').classList.add('show');}\nfunction openRoleEdit(){editMode='role';document.getElementById('modal-title').textContent='Edit role';document.getElementById('modal-label').textContent='Role';document.getElementById('modal-input').value=document.getElementById('profile-role').textContent;document.getElementById('edit-modal').classList.add('show');}\nfunction editBadge(idx){editMode='badge';editIdx=idx;document.getElementById('modal-title').textContent='Edit badge';document.getElementById('modal-label').textContent='Badge text';document.getElementById('modal-input').value=document.querySelectorAll('.badge')[idx].textContent;document.getElementById('edit-modal').classList.add('show');}\nfunction editStat(idx,lbl){editMode='stat';editIdx=idx;document.getElementById('modal-title').textContent='Edit '+lbl;document.getElementById('modal-label').textContent=lbl;document.getElementById('modal-input').value=document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[idx].textContent;document.getElementById('edit-modal').classList.add('show');}\nfunction saveEdit(){const val=document.getElementById('modal-input').value;if(!val.trim()){alert('Please enter a value');return;}if(editMode==='name'){document.getElementById('profile-name').textContent=val;}else if(editMode==='role'){document.getElementById('profile-role').textContent=val;}else if(editMode==='badge'){document.querySelectorAll('.badge')[editIdx].textContent=val;}else if(editMode==='stat'){document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[editIdx].textContent=val;}closeModal();}\nfunction closeModal(){document.getElementById('edit-modal').classList.remove('show');}\n\n// ── UTILS\nfunction nowTime(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||11;return(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}\nfunction esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}\n</script>\n</body>\n</html>
+          <div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div><div class="sc sc-d sc-you" data-shift="D" onclick="cycleShift(this)">D</div><div class="sc sc-d sc-you" data-shift="D" onclick="cycleShift(this)">D</div><div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div>
+          <div class="sg-n" style="font-size:10px;color:var(--muted)">Priya</div>
+          <div class="sc sc-d">D</div><div class="sc sc-o">—</div><div class="sc sc-n">N</div>
+          <div class="sc sc-n">N</div><div class="sc sc-o">—</div><div class="sc sc-e">E</div><div class="sc sc-e">E</div>
+          <div class="sg-n" style="font-size:10px;color:var(--muted)">Marcus</div>
+          <div class="sc sc-o">—</div><div class="sc sc-e">E</div><div class="sc sc-e">E</div>
+          <div class="sc sc-o">—</div><div class="sc sc-n">N</div><div class="sc sc-o">—</div><div class="sc sc-d">D</div>
+          <div class="sg-n" style="font-size:10px;color:var(--muted)">Chen</div>
+          <div class="sc sc-e">E</div><div class="sc sc-d">D</div><div class="sc sc-o">—</div>
+          <div class="sc sc-e">E</div><div class="sc sc-o">—</div><div class="sc sc-n">N</div><div class="sc sc-n">N</div>
+        </div>
+        <div class="legend">
+          <span><div class="lsq" style="background:var(--teal-bg);border:0.5px solid rgba(13,158,124,0.3)"></div>Night</span>
+          <span><div class="lsq" style="background:var(--blue-bg);border:0.5px solid rgba(21,101,192,0.3)"></div>Day</span>
+          <span><div class="lsq" style="background:var(--purple-bg);border:0.5px solid rgba(107,33,168,0.2)"></div>Evening</span>
+          <span><div class="lsq" style="background:var(--surface2);border:0.5px solid var(--border)"></div>Off</span>
+        </div>
+      </div>
+      <div class="sleep-card">
+        <div class="sleep-head">Sleep planning · your next night shift (Tue)</div>
+        <div class="sleep-item">Today (Mon off) → <strong>Sleep 10 PM – 6 AM</strong> to anchor your circadian rhythm</div>
+        <div class="sleep-item">Tue pre-shift nap → <strong>14:00 – 16:00</strong> recommended. Avoid caffeine after 20:00</div>
+        <div class="sleep-item">Wed recovery → <strong>Sleep 08:00 – 15:00</strong> before returning to day pattern</div>
+      </div>
+    </div>
+
+    <!-- ═══ PEER SUPPORT ═══ -->
+    <div class="panel" id="panel-peers">
+      <div class="peer-tabs">
+        <button class="peer-tab on" onclick="peerTab('ai',this)">AI Support</button>
+      </div>
+
+      <!-- AI SUPPORT -->
+      <div class="peer-section on" id="ps-ai">
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="chat-av">🤖</div>
+            <div style="flex:1">
+              <div class="chat-title">AI Support (Mental Support)</div>
+              <div class="chat-subtitle">Private · Safe · Non-judgmental</div>
+            </div>
+            <div class="pill pill-teal" style="font-size:10px">AI</div>
+          </div>
+          <div class="chat-messages" id="ai-msgs">
+            <div class="msg msg-ai">
+              Hey, I'm your NightShift support companion. I'm here to listen, help you decompress, or talk through anything that's weighing on you during your shift. How are you feeling right now?
+              <div class="msg-time">now</div>
+            </div>
+          </div>
+          <div class="typing" id="ai-typing">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+          <div class="quick-replies" id="quick-replies">
+            <button class="qr" onclick="sendQR(this)">I'm exhausted</button>
+            <button class="qr" onclick="sendQR(this)">Stressful patient situation</button>
+            <button class="qr" onclick="sendQR(this)">Feeling isolated</button>
+            <button class="qr" onclick="sendQR(this)">Need a pep talk</button>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="ai-input" placeholder="Tell me how you're doing..." onkeydown="if(event.key==='Enter')sendAI()">
+            <button class="send-btn" onclick="sendAI()">
+              <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ABOUT ME ═══ -->
+    <div class="panel" id="panel-about">
+      <div class="about-hero">
+        <div>
+          <div class="about-name" id="profile-name" onclick="openEdit('name')">Alex Johnson</div>
+          <div class="about-role" id="profile-role" onclick="openEdit('role')">Registered Nurse · Ward 4B</div>
+          <div class="about-badges">
+            <span class="badge badge-teal" onclick="openEdit('badge', 0)">Night shift</span>
+            <span class="badge badge-blue" onclick="openEdit('badge', 1)">3 yrs experience</span>
+            <span class="badge badge-amber" onclick="openEdit('badge', 2)">ICU trained</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-head">Shift stats</div>
+          <div class="about-row"><div class="about-lbl">Shifts this month</div><div class="about-val" onclick="openEdit('stat', 0)">12</div></div>
+          <div class="about-row"><div class="about-lbl">Night shifts</div><div class="about-val" onclick="openEdit('stat', 1)">9</div></div>
+          <div class="about-row"><div class="about-lbl">Avg fatigue score</div><div class="about-val" style="color:var(--teal)" onclick="openEdit('stat', 2)">3.2</div></div>
+          <div class="about-row" style="border:none"><div class="about-lbl">Check-in streak</div><div class="about-val" style="color:var(--green)" onclick="openEdit('stat', 3)">7 days</div></div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-head">Custom Settings</div>
+          <div class="about-toggle-row">
+            <div class="about-toggle-lbl">Break reminders</div>
+            <div class="toggle-switch on" onclick="toggleSetting(this)">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+          <div class="about-toggle-row">
+            <div class="about-toggle-lbl">Fatigue alerts</div>
+            <div class="toggle-switch on" onclick="toggleSetting(this)">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+          <div class="about-toggle-row" style="border:none">
+            <div class="about-toggle-lbl">AI support</div>
+            <div class="toggle-switch on" onclick="toggleSetting(this)">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="streak-bar">
+        <div class="card-head">Check-in streak · last 7 days</div>
+        <div class="streak-days">
+          <div class="sday sday-on">M</div>
+          <div class="sday sday-on">T</div>
+          <div class="sday sday-on">W</div>
+          <div class="sday sday-on">T</div>
+          <div class="sday sday-off">F</div>
+          <div class="sday sday-on">S</div>
+          <div class="sday sday-today">S</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ABOUT US ═══ -->
+    <div class="panel" id="panel-aboutus">
+      <div class="about-us-hero">
+        <div class="au-avatar">👤</div>
+        <div class="au-name">Oreo Warrior</div>
+        <div class="au-title">Creator & Developer</div>
+        <div class="au-desc">Passionate about building tools that support healthcare workers during challenging night shifts. Dedicated to creating intuitive, human-centered solutions for mental wellness and fatigue management.</div>
+        <div class="au-social">
+          <a href="https://github.com/OreoWarrior" target="_blank">GitHub</a>
+          <a href="mailto:contact@nightshift.dev">Email</a>
+        </div>
+      </div>
+
+      <div class="au-section">
+        <div class="au-section-title">About NightShift Buddy</div>
+        <div class="au-feature">
+          <div class="au-feature-title">💡 Why it exists</div>
+          <div class="au-feature-desc">Night shift workers face unique challenges: fatigue, isolation, and mental health struggles. NightShift Buddy was built to provide immediate, compassionate support right at your fingertips.</div>
+        </div>
+        <div class="au-feature">
+          <div class="au-feature-title">🎯 Core features</div>
+          <div class="au-feature-desc">Fatigue tracking, AI mental wellness support, handoff management, and smart scheduling tools — all designed with healthcare workers in mind.</div>
+        </div>
+        <div class="au-feature">
+          <div class="au-feature-title">❤️ Our mission</div>
+          <div class="au-feature-desc">To reduce fatigue-related errors, prevent burnout, and foster a culture of mental wellness in healthcare. You deserve support. You are not alone.</div>
+        </div>
+      </div>
+
+      <div class="au-section">
+        <div class="au-section-title">Built with</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="au-feature">
+            <div class="au-feature-title">HTML5 & CSS3</div>
+            <div class="au-feature-desc">Modern, responsive design</div>
+          </div>
+          <div class="au-feature">
+            <div class="au-feature-title">Vanilla JavaScript</div>
+            <div class="au-feature-desc">Fast, lightweight interactions</div>
+          </div>
+          <div class="au-feature">
+            <div class="au-feature-title">AI Support</div>
+            <div class="au-feature-desc">Mock responses for wellness</div>
+          </div>
+          <div class="au-feature">
+            <div class="au-feature-title">Mobile First</div>
+            <div class="au-feature-desc">Works everywhere you are</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="edit-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head" id="modal-title">Edit</div>
+    <div class="modal-field">
+      <label class="modal-label" id="modal-label">Value</label>
+      <input class="modal-input" id="modal-input" type="text" onkeydown="if(event.key==='Enter')saveEdit()">
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" style="flex:1" onclick="saveEdit()">Save</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const aiMockResponses=[
+  "That sounds really tough. You're carrying a lot right now, and it's completely valid to feel the weight of it. Take a moment — you've got this.",
+  "I hear you. Night shifts test us in ways most people don't understand. You're doing important work and it matters.",
+  "It's okay to feel overwhelmed sometimes. One breath at a time. You're stronger than you think.",
+  "Fatigue is real and your body is sending you signals. Listen to it. A short break might help more than you realize.",
+  "You're not alone in this. What you're feeling is shared by so many healthcare workers. Your wellbeing matters.",
+  "Let's break this down — is there one thing you can do right now to take care of yourself, even something small?",
+  "You're doing incredible work. Sometimes we just need to acknowledge how hard this is. How can I support you right now?",
+  "Night shifts have a way of isolating us. Remember that your crew is there, and so am I. What's on your mind?",
+  "Stress and fatigue go together, especially in your role. You're handling it with real courage.",
+  "It's brave of you to reach out. Let's talk through what's weighing on you — I'm right here with you."
+];
+
+let editMode='', editIdx=0;
+
+function tick(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||12;document.getElementById('clock').textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}
+tick();setInterval(tick,30000);
+
+function tab(name,btn){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('panel-'+name).classList.add('on');}
+
+function peerTab(name,btn){document.querySelectorAll('.peer-tab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.peer-section').forEach(s=>s.classList.remove('on'));btn.classList.add('on');document.getElementById('ps-'+name).classList.add('on');}
+
+function calc(){const e=+document.getElementById('sl-e').value,f=+document.getElementById('sl-f').value,s=+document.getElementById('sl-s').value;document.getElementById('sv-e').textContent=e;document.getElementById('sv-f').textContent=f;document.getElementById('sv-s').textContent=s;const score=parseFloat(((10-e)*0.4+(10-f)*0.35+s*0.25).toFixed(1));document.getElementById('score-big').textContent=score;document.getElementById('gfill').style.width=Math.min(score*10,100)+'%';const tag=document.getElementById('status-tag'),big=document.getElementById('score-big'),al=document.getElementById('alert-strip'),fill=document.getElementById('gfill');if(score<5){tag.className='status-tag s-ok';tag.textContent='Within safe range';big.style.color='var(--teal)';fill.style.background='var(--teal)';al.classList.remove('show');}else if(score<7){tag.className='status-tag s-warn';tag.textContent='Monitoring advised';big.style.color='var(--amber)';fill.style.background='var(--amber)';al.classList.remove('show');}else{tag.className='status-tag s-crit';tag.textContent='Break recommended';big.style.color='var(--red)';fill.style.background='var(--red)';al.classList.add('show');}}
+
+function logCheckin(btn){btn.textContent='Logged ✓';btn.style.background='#2e7d32';btn.style.borderColor='#2e7d32';setTimeout(()=>{btn.textContent='Log check-in';btn.style.background='';btn.style.borderColor='';},2500);}
+
+function toggleTask(el){el.classList.toggle('ch-done');if(!el.classList.contains('ch-done')){const hasRecheck=el.textContent.includes('recheck')||el.textContent.includes('Temp');el.classList.add(hasRecheck?'ch-urg':'ch-pend');}else{el.classList.remove('ch-urg','ch-pend');}}
+
+function addNote(){const n=prompt('Add handoff note:');if(n)alert('✓ Note added');}
+
+function markAllDone(){document.querySelectorAll('.chip').forEach(c=>{c.classList.add('ch-done');c.classList.remove('ch-urg','ch-pend');});alert('✓ All marked reviewed');}
+
+function cycleShift(el){const cycle=['N','D','E','O'];let idx=cycle.indexOf(el.dataset.shift||'O');let next=cycle[(idx+1)%4];el.dataset.shift=next;el.textContent=next==='O'?'—':next;el.className='sc sc-you';el.classList.add('sc-'+next.toLowerCase());}
+
+function callAI(msg){document.getElementById('ai-typing').classList.add('show');const msgs=document.getElementById('ai-msgs');msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>{document.getElementById('ai-typing').classList.remove('show');const r=aiMockResponses[Math.floor(Math.random()*10)];msgs.innerHTML+=`<div class="msg msg-ai">${esc(r)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;},1000+Math.random()*500);}
+
+function sendAI(){const inp=document.getElementById('ai-input'),txt=inp.value.trim();if(!txt)return;inp.value='';document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class="msg msg-user">${esc(txt)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(txt);}
+
+function sendQR(btn){document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class="msg msg-user">${esc(btn.textContent)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(btn.textContent);}
+
+function toggleSetting(el){el.classList.toggle('on');}
+
+function openEdit(mode, idx=0){editMode=mode;editIdx=idx;const titles={name:'Edit name',role:'Edit role',badge:'Edit badge',stat:'Edit stat'};const labels={name:'Full name',role:'Role',badge:'Badge text',stat:'Stat value'};document.getElementById('modal-title').textContent=titles[mode];document.getElementById('modal-label').textContent=labels[mode];if(mode==='name'){document.getElementById('modal-input').value=document.getElementById('profile-name').textContent;}else if(mode==='role'){document.getElementById('modal-input').value=document.getElementById('profile-role').textContent;}else if(mode==='badge'){document.getElementById('modal-input').value=document.querySelectorAll('.badge')[idx].textContent;}else if(mode==='stat'){document.getElementById('modal-input').value=document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[idx].textContent;}document.getElementById('edit-modal').classList.add('show');setTimeout(()=>document.getElementById('modal-input').focus(),100);}
+
+function saveEdit(){const val=document.getElementById('modal-input').value.trim();if(!val){alert('Please enter a value');return;}if(editMode==='name'){document.getElementById('profile-name').textContent=val;}else if(editMode==='role'){document.getElementById('profile-role').textContent=val;}else if(editMode==='badge'){document.querySelectorAll('.badge')[editIdx].textContent=val;}else if(editMode==='stat'){document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[editIdx].textContent=val;}closeModal();}
+
+function closeModal(){document.getElementById('edit-modal').classList.remove('show');}
+
+function nowTime(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||11;return(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script>
+</body>
+</html>
