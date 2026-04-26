@@ -1,135 +1,764 @@
-<!-- SAME HEAD + CSS (UNCHANGED) -->
-<!-- I AM ONLY SHOWING MODIFIED + IMPORTANT PARTS BELOW -->
-<!-- YOUR ORIGINAL CSS REMAINS EXACTLY SAME -->
-
-<!-- ========================= -->
-<!-- NAV (unchanged) -->
-<!-- ========================= -->
-
-<!-- ========================= -->
-<!-- PEER SUPPORT (FIXED) -->
-<!-- ========================= -->
-<div class="panel" id="panel-peers">
-  <div class="peer-tabs">
-    <button class="peer-tab on" onclick="peerTab('ai',this)">AI Support</button>
-  </div>
-
-  <!-- ONLY AI SUPPORT KEPT -->
-  <div class="peer-section on" id="ps-ai">
-    <div class="chat-window">
-      <div class="chat-header">
-        <div class="chat-av">🤖</div>
-        <div style="flex:1">
-          <div class="chat-title">AI Support Companion</div>
-          <div class="chat-status">Emotional + fatigue support · confidential</div>
-        </div>
-        <div class="pill pill-teal" style="font-size:10px">Support AI</div>
-      </div>
-
-      <div class="chat-messages" id="ai-msgs">
-        <div class="msg msg-ai">
-          Hey — I'm your NightShift support AI. I'm here to help you stay mentally strong, manage fatigue, and get through tough moments during your shift.  
-          What’s going on right now?
-          <div class="msg-time">now</div>
-        </div>
-      </div>
-
-      <div class="typing" id="ai-typing">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-
-      <div class="quick-replies" id="quick-replies">
-        <button class="qr" onclick="sendQR(this)">I'm exhausted</button>
-        <button class="qr" onclick="sendQR(this)">I can't focus</button>
-        <button class="qr" onclick="sendQR(this)">Feeling stressed</button>
-        <button class="qr" onclick="sendQR(this)">Need motivation</button>
-      </div>
-
-      <div class="chat-input-bar">
-        <input class="chat-input" id="ai-input" placeholder="Talk to AI support..." onkeydown="if(event.key==='Enter')sendAI()">
-        <button class="send-btn" onclick="sendAI()">
-          <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ========================= -->
-<!-- ABOUT ME (UPGRADED) -->
-<!-- ========================= -->
-<div class="panel" id="panel-about">
-
-  <!-- EXISTING PROFILE (UNCHANGED) -->
-
-  <!-- NEW CUSTOM SETTINGS -->
-  <div class="about-card">
-    <div class="about-card-head">Custom settings</div>
-
-    <div class="about-row">
-      <div class="about-lbl">Break reminder (mins)</div>
-      <input type="number" id="set-break" value="90" class="modal-input" style="width:80px">
-    </div>
-
-    <div class="about-row">
-      <div class="about-lbl">Fatigue alert threshold</div>
-      <input type="number" id="set-fatigue" value="7" class="modal-input" style="width:60px">
-    </div>
-
-    <div class="about-row">
-      <div class="about-lbl">AI Support</div>
-      <select id="set-ai" class="modal-input">
-        <option value="on">Enabled</option>
-        <option value="off">Disabled</option>
-      </select>
-    </div>
-
-    <button class="btn primary" style="margin-top:12px;width:100%" onclick="saveSettings()">Save settings</button>
-  </div>
-
-</div>
-
-<!-- ========================= -->
-<!-- SCHEDULE (CLICKABLE NOW) -->
-<!-- ========================= -->
-<script>
-document.querySelectorAll('.sc').forEach(cell=>{
-  cell.addEventListener('click',()=>{
-    const states=['sc-o','sc-d','sc-e','sc-n'];
-    let current=states.find(s=>cell.classList.contains(s));
-    let next=states[(states.indexOf(current)+1)%states.length];
-
-    states.forEach(s=>cell.classList.remove(s));
-    cell.classList.add(next);
-
-    // update label
-    cell.textContent =
-      next==='sc-o'?'—':
-      next==='sc-d'?'D':
-      next==='sc-e'?'E':
-      'N';
-  });
-});
-</script>
-
-<!-- ========================= -->
-<!-- SETTINGS SAVE -->
-<!-- ========================= -->
-<script>
-function saveSettings(){
-  const b=document.getElementById('set-break').value;
-  const f=document.getElementById('set-fatigue').value;
-  const ai=document.getElementById('set-ai').value;
-
-  alert("Settings saved:\nBreak: "+b+" mins\nFatigue alert: "+f+"\nAI: "+ai);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NightShift Buddy</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f3;--surface:#ffffff;--surface2:#f0efeb;--surface3:#e8e7e3;
+  --ink:#1a1a1a;--muted:#888784;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.13);
+  --teal:#0d9e7c;--teal-bg:#e8f7f2;--teal-text:#065c49;
+  --amber:#b36a00;--amber-bg:#fff4e0;--amber-text:#7a4800;
+  --red:#c0392b;--red-bg:#fdecea;--red-text:#7b1f18;
+  --green:#2e7d32;--green-bg:#edf7ee;--green-text:#1b4d1d;
+  --blue:#1565c0;--blue-bg:#e8f0fe;--blue-text:#0c3d8a;
+  --purple:#6b21a8;--purple-bg:#f3e8ff;--purple-text:#4c1680;
+  --mono:'Geist Mono',monospace;--sans:'DM Sans',sans-serif;
 }
-</script>
+body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:28px 16px;font-family:var(--sans)}
+.app{background:var(--bg);width:100%;max-width:740px;border-radius:20px;overflow:hidden;border:0.5px solid var(--border2);box-shadow:0 8px 40px rgba(0,0,0,0.13)}
 
-<!-- ========================= -->
-<!-- REMOVE UNUSED FUNCTIONS -->
-<!-- ========================= -->
+/* TOPBAR */
+.topbar{background:var(--surface);border-bottom:0.5px solid var(--border2);padding:15px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--teal);display:flex;align-items:center;gap:9px;letter-spacing:0.02em}
+.logo-ring{width:9px;height:9px;border-radius:50%;background:var(--teal);animation:breathe 3s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(0.7);opacity:0.4}}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.pill{font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:999px;letter-spacing:0.03em}
+.pill-teal{background:var(--teal-bg);color:var(--teal-text);border:0.5px solid rgba(13,158,124,0.25)}
+.pill-muted{background:var(--surface2);color:var(--muted);border:0.5px solid var(--border2)}
+
+/* NAV */
+.nav{display:flex;background:var(--surface);border-bottom:0.5px solid var(--border);padding:0 24px;gap:2px;overflow-x:auto}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{font-family:var(--sans);font-size:13px;color:var(--muted);padding:12px 14px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;white-space:nowrap;font-weight:400;flex-shrink:0}
+.nav-btn:hover{color:var(--ink)}
+.nav-btn.on{color:var(--teal);border-bottom-color:var(--teal);font-weight:500}
+
+/* BODY */
+.body{padding:20px 24px;background:var(--bg)}
+.panel{display:none}.panel.on{display:block}
+
+/* SHARED COMPONENTS */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:15px 17px}
+.stat-l{font-size:11px;color:var(--muted);margin-bottom:7px;font-family:var(--mono);letter-spacing:0.04em}
+.stat-n{font-size:24px;font-weight:500;line-height:1;font-family:var(--mono)}
+.stat-s{font-size:11px;color:var(--muted);margin-top:5px}
+.card{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:18px;margin-bottom:12px}
+.card-head{font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:0.06em;margin-bottom:14px;text-transform:uppercase}
+.btn{font-family:var(--mono);font-size:12px;padding:9px 18px;border-radius:8px;cursor:pointer;border:0.5px solid var(--border2);background:var(--surface);color:var(--ink);transition:all 0.13s;letter-spacing:0.02em}
+.btn:hover{background:var(--surface2)}
+.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.btn.primary:hover{opacity:0.87}
+.section-label{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--border2)}
+
+/* FATIGUE */
+.score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.score-big{font-size:36px;font-weight:500;font-family:var(--mono)}
+.score-sub{font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--mono)}
+.status-tag{font-size:11px;padding:5px 13px;border-radius:999px;font-family:var(--mono)}
+.s-ok{background:var(--green-bg);color:var(--green-text)}
+.s-warn{background:var(--amber-bg);color:var(--amber-text)}
+.s-crit{background:var(--red-bg);color:var(--red-text)}
+.gauge-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.gauge-fill{height:100%;border-radius:4px;transition:width 0.5s ease,background 0.4s ease;background:var(--teal)}
+.gauge-labels{display:flex;justify-content:space-between}
+.gauge-lbl{font-size:10px;color:var(--muted);font-family:var(--mono)}
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:11px}
+.slider-lbl{font-size:12px;color:var(--muted);width:54px;flex-shrink:0}
+.slider-row input[type=range]{flex:1;accent-color:var(--teal)}
+.slider-val{font-family:var(--mono);font-size:12px;color:var(--teal);width:20px;text-align:right}
+.action-row{display:flex;gap:10px;margin-top:16px;align-items:center}
+.hint-txt{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.alert-strip{display:none;background:var(--red-bg);border:0.5px solid rgba(192,57,43,0.25);border-radius:8px;padding:12px 15px;margin-top:14px;font-size:12px;color:var(--red-text);line-height:1.65}
+.alert-strip.show{display:block}
+
+/* HANDOFF */
+.pcard{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:15px 17px;margin-bottom:9px;display:grid;grid-template-columns:10px 1fr auto;gap:13px;align-items:start}
+.dot{width:9px;height:9px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.dot-r{background:#e53935}.dot-a{background:#f59300}.dot-g{background:#43a047}
+.pname{font-size:13px;font-weight:500;margin-bottom:4px}
+.pnote{font-size:12px;color:var(--muted);line-height:1.6}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:10px;padding:3px 9px;border-radius:5px;font-family:var(--mono)}
+.ch-done{background:var(--green-bg);color:var(--green-text);text-decoration:line-through;opacity:0.7}
+.ch-pend{background:var(--amber-bg);color:var(--amber-text)}
+.ch-urg{background:var(--red-bg);color:var(--red-text)}
+.bed-tag{font-size:10px;font-family:var(--mono);padding:3px 9px;border-radius:6px;background:var(--surface2);color:var(--muted);border:0.5px solid var(--border2);white-space:nowrap}
+.btn-row2{display:flex;gap:9px;margin-top:6px}
+
+/* SCHEDULE */
+.sched-wrap{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:18px;margin-bottom:13px}
+.sg{display:grid;grid-template-columns:72px repeat(7,1fr);gap:3px;font-size:11px}
+.sg-h{text-align:center;padding:5px 2px;color:var(--muted);font-family:var(--mono)}
+.sg-n{color:var(--muted);padding:5px 2px;display:flex;align-items:center;font-size:11px}
+.sc{border-radius:5px;padding:5px 3px;text-align:center;font-size:10px;font-family:var(--mono);cursor:pointer;transition:all 0.15s}
+.sc:hover{opacity:0.8}
+.sc-n{background:var(--teal-bg);color:var(--teal-text);border:0.5px solid rgba(13,158,124,0.2)}
+.sc-d{background:var(--blue-bg);color:var(--blue-text);border:0.5px solid rgba(21,101,192,0.2)}
+.sc-e{background:var(--purple-bg);color:var(--purple-text);border:0.5px solid rgba(107,33,168,0.2)}
+.sc-o{background:var(--surface2);color:var(--muted);border:0.5px solid var(--border)}
+.sc-you{outline:2px solid var(--teal);outline-offset:1px}
+.legend{display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.legend span{display:flex;align-items:center;gap:5px}
+.lsq{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.sleep-card{background:var(--teal-bg);border:0.5px solid rgba(13,158,124,0.2);border-radius:12px;padding:16px 18px}
+.sleep-head{font-size:11px;color:var(--teal-text);font-family:var(--mono);font-weight:500;margin-bottom:11px;letter-spacing:0.04em}
+.sleep-item{font-size:12px;color:var(--muted);padding:7px 0;border-bottom:0.5px solid rgba(13,158,124,0.15);line-height:1.6}
+.sleep-item:last-child{border:none;padding-bottom:0}
+.sleep-item strong{color:var(--teal-text);font-weight:500}
+
+/* PEER SUPPORT */
+.peer-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.peer-tab{font-family:var(--mono);font-size:11px;padding:7px 14px;border-radius:8px;cursor:pointer;border:0.5px solid var(--border2);background:var(--surface);color:var(--muted);transition:all 0.13s;letter-spacing:0.03em}
+.peer-tab:hover{background:var(--surface2);color:var(--ink)}
+.peer-tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.peer-section{display:none}.peer-section.on{display:block}
+
+.online-bar{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:13px 17px;margin-bottom:13px;display:flex;align-items:center;justify-content:space-between}
+.online-dot{width:7px;height:7px;border-radius:50%;background:#43a047;flex-shrink:0;animation:breathe 2.5s ease-in-out infinite}
+.online-info{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted)}
+.online-ct{color:#2e7d32;font-weight:500}
+.peercard{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:13px 17px;margin-bottom:9px;display:flex;align-items:center;gap:13px}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;font-family:var(--mono);flex-shrink:0}
+.av-t{background:var(--teal-bg);color:var(--teal-text)}
+.av-p{background:var(--purple-bg);color:var(--purple-text)}
+.av-b{background:var(--blue-bg);color:var(--blue-text)}
+.av-a{background:var(--amber-bg);color:var(--amber-text)}
+.peer-name{font-size:13px;font-weight:500;margin-bottom:3px}
+.peer-sub{font-size:11px;color:var(--muted);line-height:1.5}
+.ml-auto{margin-left:auto}
+
+/* CHAT - AI SUPPORT */
+.chat-window{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.chat-header{background:var(--teal-bg);border-bottom:0.5px solid rgba(13,158,124,0.2);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.chat-av{width:34px;height:34px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.chat-title{font-size:13px;font-weight:500;color:var(--teal-text)}
+.chat-subtitle{font-size:11px;color:var(--teal);font-family:var(--mono)}
+.chat-status{font-size:11px;color:var(--teal);font-family:var(--mono)}
+.chat-messages{padding:16px;height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.msg{max-width:82%;padding:10px 13px;border-radius:10px;font-size:13px;line-height:1.6;animation:fadeUp 0.25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg-ai{background:var(--surface2);color:var(--ink);border-radius:10px 10px 10px 3px;align-self:flex-start;border:0.5px solid var(--border2)}
+.msg-user{background:var(--teal);color:#fff;border-radius:10px 10px 3px 10px;align-self:flex-end}
+.msg-time{font-size:10px;opacity:0.6;margin-top:4px;font-family:var(--mono)}
+.typing{display:none;align-self:flex-start;background:var(--surface2);border:0.5px solid var(--border2);padding:10px 14px;border-radius:10px 10px 10px 3px;gap:4px;align-items:center}
+.typing.show{display:flex}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:typeBounce 1.2s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes typeBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.chat-input-bar{border-top:0.5px solid var(--border2);padding:12px 14px;display:flex;gap:10px;align-items:center}
+.chat-input{flex:1;font-family:var(--sans);font-size:13px;padding:9px 13px;border-radius:8px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--ink);outline:none;transition:border-color 0.13s}
+.chat-input:focus{border-color:rgba(13,158,124,0.5);background:var(--surface)}
+.chat-input::placeholder{color:var(--muted)}
+.send-btn{width:36px;height:36px;border-radius:8px;background:var(--teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.13s}
+.send-btn:hover{opacity:0.85}
+.send-btn svg{width:16px;height:16px;fill:#fff}
+.quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
+.qr{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:999px;border:0.5px solid rgba(13,158,124,0.3);background:var(--teal-bg);color:var(--teal-text);cursor:pointer;transition:all 0.13s;white-space:nowrap}
+.qr:hover{background:var(--teal);color:#fff}
+
+/* ABOUT ME */
+.about-hero{background:var(--surface);border:0.5px solid var(--border2);border-radius:14px;padding:24px;margin-bottom:14px;display:flex;align-items:center;gap:20px}
+.about-avatar{width:72px;height:72px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:600;font-family:var(--mono);color:#fff;flex-shrink:0;position:relative}
+.about-avatar::after{content:'';position:absolute;bottom:2px;right:2px;width:14px;height:14px;border-radius:50%;background:#43a047;border:2px solid var(--surface)}
+.about-name{font-size:20px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.about-role{font-size:13px;color:var(--muted);margin-bottom:10px;font-family:var(--mono)}
+.about-badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font-size:10px;padding:3px 10px;border-radius:999px;font-family:var(--mono);letter-spacing:0.03em}
+.badge-teal{background:var(--teal-bg);color:var(--teal-text);border:0.5px solid rgba(13,158,124,0.25)}
+.badge-blue{background:var(--blue-bg);color:var(--blue-text);border:0.5px solid rgba(21,101,192,0.2)}
+.badge-amber{background:var(--amber-bg);color:var(--amber-text);border:0.5px solid rgba(179,106,0,0.2)}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.about-card{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:16px}
+.about-card-head{font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:0.06em;margin-bottom:12px;text-transform:uppercase}
+.about-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:12px}
+.about-row:last-child{border:none;padding-bottom:0}
+.about-lbl{color:var(--muted)}
+.about-val{color:var(--ink);font-weight:500;font-family:var(--mono);font-size:12px}
+
+/* TOGGLE SWITCH */
+.toggle-switch{display:inline-flex;align-items:center;width:40px;height:22px;border-radius:11px;background:var(--surface2);border:0.5px solid var(--border2);cursor:pointer;padding:2px;transition:background 0.2s;position:relative}
+.toggle-switch.on{background:var(--teal);border-color:var(--teal)}
+.toggle-slider{width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;left:2px;transition:left 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.toggle-switch.on .toggle-slider{left:20px}
+
+.about-toggle-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:0.5px solid var(--border);font-size:12px}
+.about-toggle-row:last-child{border:none;padding-bottom:0}
+.about-toggle-lbl{color:var(--muted);flex:1}
+
+.streak-bar{background:var(--surface);border:0.5px solid var(--border2);border-radius:12px;padding:16px;margin-bottom:14px}
+.streak-days{display:flex;gap:5px;margin-top:10px}
+.sday{flex:1;height:32px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-family:var(--mono);color:var(--muted)}
+.sday-on{background:var(--teal-bg);color:var(--teal-text);border:0.5px solid rgba(13,158,124,0.25)}
+.sday-off{background:var(--surface2);border:0.5px solid var(--border)}
+.sday-today{background:var(--teal);color:#fff;border:none}
+
+.edit-profile-btn{width:100%;padding:11px;border-radius:10px;background:var(--surface);border:0.5px solid var(--border2);font-family:var(--mono);font-size:12px;color:var(--muted);cursor:pointer;transition:all 0.13s;letter-spacing:0.03em}
+.edit-profile-btn:hover{background:var(--surface2);color:var(--ink)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:var(--surface);border-radius:16px;border:0.5px solid var(--border2);padding:24px;width:100%;max-width:420px;box-shadow:0 12px 40px rgba(0,0,0,0.15)}
+.modal-head{font-size:16px;font-weight:500;margin-bottom:16px}
+.modal-field{margin-bottom:12px}
+.modal-label{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:5px;display:block;letter-spacing:0.04em}
+.modal-input{width:100%;padding:9px 12px;border-radius:8px;border:0.5px solid var(--border2);background:var(--surface2);font-family:var(--sans);font-size:13px;color:var(--ink);outline:none}
+.modal-input:focus{border-color:rgba(13,158,124,0.5)}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
+
+/* MSG BUBBLE modal */
+.dm-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:100;align-items:center;justify-content:center;padding:20px}
+.dm-modal.show{display:flex}
+.dm-box{background:var(--surface);border-radius:14px;border:0.5px solid var(--border2);width:100%;max-width:400px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+.dm-head{padding:14px 16px;border-bottom:0.5px solid var(--border2);display:flex;align-items:center;gap:10px;justify-content:space-between}
+.dm-title{font-size:13px;font-weight:500}
+.dm-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1}
+.dm-messages{padding:14px;height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.dm-input-bar{border-top:0.5px solid var(--border2);padding:10px 12px;display:flex;gap:8px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo"><div class="logo-ring"></div>NightShift Buddy</div>
+    <div class="topbar-right">
+      <div class="pill pill-teal">Night · Ward 4B</div>
+      <div class="pill pill-muted" id="clock">--:-- --</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button class="nav-btn on" onclick="tab('fatigue',this)">Fatigue</button>
+    <button class="nav-btn" onclick="tab('handoff',this)">Handoff board</button>
+    <button class="nav-btn" onclick="tab('schedule',this)">Schedule</button>
+    <button class="nav-btn" onclick="tab('peers',this)">Peer support</button>
+    <button class="nav-btn" onclick="tab('about',this)">About me</button>
+  </div>
+
+  <div class="body">
+
+    <!-- ═══ FATIGUE ═══ -->
+    <div class="panel on" id="panel-fatigue">
+      <div class="grid3">
+        <div class="stat">
+          <div class="stat-l">Shift elapsed</div>
+          <div class="stat-n" style="color:var(--blue)">4h 12m</div>
+          <div class="stat-s">of 12h shift</div>
+        </div>
+        <div class="stat">
+          <div class="stat-l">Last break</div>
+          <div class="stat-n" style="color:var(--amber)">68m</div>
+          <div class="stat-s">due soon</div>
+        </div>
+        <div class="stat">
+          <div class="stat-l">Team avg</div>
+          <div class="stat-n" style="color:var(--green)">3.1</div>
+          <div class="stat-s">fatigue · OK</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Your fatigue index</div>
+        <div class="score-row">
+          <div>
+            <div class="score-big" id="score-big" style="color:var(--teal)">3.4</div>
+            <div class="score-sub">self-reported · 01:30 AM</div>
+          </div>
+          <div class="status-tag s-ok" id="status-tag">Within safe range</div>
+        </div>
+        <div class="gauge-track"><div class="gauge-fill" id="gfill" style="width:34%"></div></div>
+        <div class="gauge-labels">
+          <span class="gauge-lbl">0 — alert</span>
+          <span class="gauge-lbl">5 — monitor</span>
+          <span class="gauge-lbl">10 — critical</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Hourly check-in</div>
+        <div class="slider-row">
+          <div class="slider-lbl">Energy</div>
+          <input type="range" min="0" max="10" value="6" id="sl-e" oninput="calc()">
+          <div class="slider-val" id="sv-e">6</div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-lbl">Focus</div>
+          <input type="range" min="0" max="10" value="7" id="sl-f" oninput="calc()">
+          <div class="slider-val" id="sv-f">7</div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-lbl">Stress</div>
+          <input type="range" min="0" max="10" value="4" id="sl-s" oninput="calc()">
+          <div class="slider-val" id="sv-s">4</div>
+        </div>
+        <div class="action-row">
+          <button class="btn primary" onclick="logCheckin(this)">Log check-in</button>
+          <div class="hint-txt">Next check-in: 03:30 AM</div>
+        </div>
+        <div class="alert-strip" id="alert-strip">
+          ⚠ Fatigue above threshold (7+). Consider a 5-min break or notify your charge nurse. Your supervisor has been quietly flagged.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ HANDOFF BOARD ═══ -->
+    <div class="panel" id="panel-handoff">
+      <div style="margin-bottom:16px">
+        <div class="section-label">Urgent · needs action</div>
+        <div class="pcard">
+          <div class="dot dot-r"></div>
+          <div>
+            <div class="pname">Bed 12 — M. Santos</div>
+            <div class="pnote">BP trending high since 00:30. Awaiting repeat reading at 03:00. Cardiologist aware.</div>
+            <div class="chips">
+              <span class="chip ch-urg">BP recheck 03:00</span>
+              <span class="chip ch-pend">IV fluids confirm</span>
+              <span class="chip ch-done">Pain meds given</span>
+            </div>
+          </div>
+          <div class="bed-tag">BED-12</div>
+        </div>
+        <div class="pcard">
+          <div class="dot dot-a"></div>
+          <div>
+            <div class="pname">Bed 7 — R. Okonkwo</div>
+            <div class="pnote">Post-op day 2. Fever 37.9°C. Family anxious — interpreter requested for 06:00 morning round.</div>
+            <div class="chips">
+              <span class="chip ch-pend">Temp recheck 04:00</span>
+              <span class="chip ch-pend">Interpreter booked?</span>
+              <span class="chip ch-done">Wound dressed</span>
+            </div>
+          </div>
+          <div class="bed-tag">BED-07</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Stable · routine monitoring</div>
+        <div class="pcard">
+          <div class="dot dot-g"></div>
+          <div>
+            <div class="pname">Bed 3 — L. Petrov</div>
+            <div class="pnote">Resting well. Discharge planned for 09:00. Paperwork 80% done — needs pharmacy sign-off.</div>
+            <div class="chips">
+              <span class="chip ch-pend">Pharmacy sign-off</span>
+              <span class="chip ch-done">OT referral sent</span>
+              <span class="chip ch-done">Family notified</span>
+            </div>
+          </div>
+          <div class="bed-tag">BED-03</div>
+        </div>
+      </div>
+      <div class="btn-row2">
+        <button class="btn primary" style="flex:1">+ Add handoff note</button>
+        <button class="btn" style="flex:1">Mark all reviewed</button>
+      </div>
+    </div>
+
+    <!-- ═══ SCHEDULE ═══ -->
+    <div class="panel" id="panel-schedule">
+      <div class="sched-wrap">
+        <div class="card-head" style="margin-bottom:14px">2-week forecast · your shifts outlined</div>
+        <div class="sg" id="schedule-grid">
+          <div class="sg-h"></div>
+          <div class="sg-h">Mon</div><div class="sg-h">Tue</div><div class="sg-h">Wed</div>
+          <div class="sg-h">Thu</div><div class="sg-h">Fri</div><div class="sg-h">Sat</div><div class="sg-h">Sun</div>
+          <div class="sg-n">You</div>
+          <div class="sc sc-n sc-you" data-shift="N" onclick="cycleShift(this)">N</div><div class="sc sc-n sc-you" data-shift="N" onclick="cycleShift(this)">N</div><div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div>
+          <div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div><div class="sc sc-d sc-you" data-shift="D" onclick="cycleShift(this)">D</div><div class="sc sc-d sc-you" data-shift="D" onclick="cycleShift(this)">D</div><div class="sc sc-o" data-shift="O" onclick="cycleShift(this)">—</div>
+          <div class="sg-n" style="font-size:10px;color:var(--muted)">Priya</div>
+          <div class="sc sc-d">D</div><div class="sc sc-o">—</div><div class="sc sc-n">N</div>
+          <div class="sc sc-n">N</div><div class="sc sc-o">—</div><div class="sc sc-e">E</div><div class="sc sc-e">E</div>
+          <div class="sg-n" style="font-size:10px;color:var(--muted)">Marcus</div>
+          <div class="sc sc-o">—</div><div class="sc sc-e">E</div><div class="sc sc-e">E</div>
+          <div class="sc sc-o">—</div><div class="sc sc-n">N</div><div class="sc sc-o">—</div><div class="sc sc-d">D</div>
+          <div class="sg-n" style="font-size:10px;color:var(--muted)">Chen</div>
+          <div class="sc sc-e">E</div><div class="sc sc-d">D</div><div class="sc sc-o">—</div>
+          <div class="sc sc-e">E</div><div class="sc sc-o">—</div><div class="sc sc-n">N</div><div class="sc sc-n">N</div>
+        </div>
+        <div class="legend">
+          <span><div class="lsq" style="background:var(--teal-bg);border:0.5px solid rgba(13,158,124,0.3)"></div>Night</span>
+          <span><div class="lsq" style="background:var(--blue-bg);border:0.5px solid rgba(21,101,192,0.3)"></div>Day</span>
+          <span><div class="lsq" style="background:var(--purple-bg);border:0.5px solid rgba(107,33,168,0.2)"></div>Evening</span>
+          <span><div class="lsq" style="background:var(--surface2);border:0.5px solid var(--border)"></div>Off</span>
+        </div>
+      </div>
+      <div class="sleep-card">
+        <div class="sleep-head">Sleep planning · your next night shift (Tue)</div>
+        <div class="sleep-item">Today (Mon off) → <strong>Sleep 10 PM – 6 AM</strong> to anchor your circadian rhythm</div>
+        <div class="sleep-item">Tue pre-shift nap → <strong>14:00 – 16:00</strong> recommended. Avoid caffeine after 20:00</div>
+        <div class="sleep-item">Wed recovery → <strong>Sleep 08:00 – 15:00</strong> before returning to day pattern</div>
+      </div>
+    </div>
+
+    <!-- ═══ PEER SUPPORT ═══ -->
+    <div class="panel" id="panel-peers">
+      <div class="peer-tabs">
+        <button class="peer-tab on" onclick="peerTab('crew',this)">Crew online</button>
+        <button class="peer-tab" onclick="peerTab('ai',this)">AI Support</button>
+      </div>
+
+      <!-- CREW ONLINE -->
+      <div class="peer-section on" id="ps-crew">
+        <div class="online-bar">
+          <div class="online-info">
+            <div class="online-dot"></div>
+            <span><span class="online-ct">4</span> crew members online · Ward 4B</span>
+          </div>
+        </div>
+        <div class="peercard">
+          <div class="av av-t">PR</div>
+          <div>
+            <div class="peer-name">Priya Rajan</div>
+            <div class="peer-sub">RN · Beds 1–6 · Fatigue 2.1 — alert</div>
+          </div>
+          <button class="btn ml-auto" style="font-size:11px;padding:6px 13px" onclick="openDM('Priya Rajan','av-t','PR')">Message</button>
+        </div>
+        <div class="peercard">
+          <div class="av av-p">MK</div>
+          <div>
+            <div class="peer-name">Marcus Kato</div>
+            <div class="peer-sub">Orderly · Rooms 10–14 · Fatigue 4.8 — monitoring</div>
+          </div>
+          <button class="btn ml-auto" style="font-size:11px;padding:6px 13px" onclick="openDM('Marcus Kato','av-p','MK')">Message</button>
+        </div>
+        <div class="peercard">
+          <div class="av av-b">SC</div>
+          <div>
+            <div class="peer-name">Sandra Chen</div>
+            <div class="peer-sub">Charge nurse · Fatigue 3.2 — alert</div>
+          </div>
+          <button class="btn ml-auto" style="font-size:11px;padding:6px 13px" onclick="openDM('Sandra Chen','av-b','SC')">Message</button>
+        </div>
+        <div class="peercard" style="opacity:0.55">
+          <div class="av av-a">JD</div>
+          <div>
+            <div class="peer-name">James Dube</div>
+            <div class="peer-sub">RN · Off duty · available tomorrow</div>
+          </div>
+          <button class="btn ml-auto" style="font-size:11px;padding:6px 13px;opacity:0.5;cursor:default">Offline</button>
+        </div>
+      </div>
+
+      <!-- AI SUPPORT -->
+      <div class="peer-section" id="ps-ai">
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="chat-av">🤖</div>
+            <div style="flex:1">
+              <div class="chat-title">AI Support (Mental Support)</div>
+              <div class="chat-subtitle">Private · Safe · Non-judgmental</div>
+            </div>
+            <div class="pill pill-teal" style="font-size:10px">AI</div>
+          </div>
+          <div class="chat-messages" id="ai-msgs">
+            <div class="msg msg-ai">
+              Hey, I'm your NightShift support companion. I'm here to listen, help you decompress, or talk through anything that's weighing on you during your shift. How are you feeling right now?
+              <div class="msg-time">now</div>
+            </div>
+          </div>
+          <div class="typing" id="ai-typing">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+          <div class="quick-replies" id="quick-replies">
+            <button class="qr" onclick="sendQR(this)">I'm exhausted</button>
+            <button class="qr" onclick="sendQR(this)">Stressful patient situation</button>
+            <button class="qr" onclick="sendQR(this)">Feeling isolated</button>
+            <button class="qr" onclick="sendQR(this)">Need a pep talk</button>
+          </div>
+          <div class="chat-input-bar">
+            <input class="chat-input" id="ai-input" placeholder="Tell me how you're doing..." onkeydown="if(event.key==='Enter')sendAI()">
+            <button class="send-btn" onclick="sendAI()">
+              <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ABOUT ME ═══ -->
+    <div class="panel" id="panel-about">
+      <div class="about-hero">
+        <div class="about-avatar" id="profile-avatar">AJ</div>
+        <div>
+          <div class="about-name" id="profile-name">Alex Johnson</div>
+          <div class="about-role" id="profile-role">Registered Nurse · Ward 4B</div>
+          <div class="about-badges">
+            <span class="badge badge-teal">Night shift</span>
+            <span class="badge badge-blue">3 yrs experience</span>
+            <span class="badge badge-amber">ICU trained</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-head">Shift stats</div>
+          <div class="about-row"><div class="about-lbl">Shifts this month</div><div class="about-val">12</div></div>
+          <div class="about-row"><div class="about-lbl">Night shifts</div><div class="about-val">9</div></div>
+          <div class="about-row"><div class="about-lbl">Avg fatigue score</div><div class="about-val" style="color:var(--teal)">3.2</div></div>
+          <div class="about-row" style="border:none"><div class="about-lbl">Check-in streak</div><div class="about-val" style="color:var(--green)">7 days</div></div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-head">Custom Settings</div>
+          <div class="about-toggle-row">
+            <div class="about-toggle-lbl">Break reminders</div>
+            <div class="toggle-switch on" onclick="toggleSetting(this)" data-setting="break-reminder">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+          <div class="about-toggle-row">
+            <div class="about-toggle-lbl">Fatigue alerts</div>
+            <div class="toggle-switch on" onclick="toggleSetting(this)" data-setting="fatigue-alerts">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+          <div class="about-toggle-row" style="border:none">
+            <div class="about-toggle-lbl">AI support</div>
+            <div class="toggle-switch on" onclick="toggleSetting(this)" data-setting="ai-support">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="streak-bar">
+        <div class="card-head">Check-in streak · last 7 days</div>
+        <div class="streak-days">
+          <div class="sday sday-on">M</div>
+          <div class="sday sday-on">T</div>
+          <div class="sday sday-on">W</div>
+          <div class="sday sday-on">T</div>
+          <div class="sday sday-off">F</div>
+          <div class="sday sday-on">S</div>
+          <div class="sday sday-today">S</div>
+        </div>
+      </div>
+
+      <button class="edit-profile-btn" onclick="openEditModal()">Edit profile</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- DM MODAL -->
+<div class="dm-modal" id="dm-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="dm-box">
+    <div class="dm-head">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div class="av" id="dm-av" style="width:30px;height:30px;font-size:11px"></div>
+        <div class="dm-title" id="dm-title"></div>
+      </div>
+      <button class="dm-close" onclick="document.getElementById('dm-modal').classList.remove('show')">×</button>
+    </div>
+    <div class="dm-messages" id="dm-msgs"></div>
+    <div class="dm-input-bar">
+      <input class="chat-input" id="dm-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendDM()">
+      <button class="send-btn" onclick="sendDM()">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="edit-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-head">Edit profile</div>
+    <div class="modal-field">
+      <label class="modal-label">Full name</label>
+      <input class="modal-input" id="edit-name" value="Alex Johnson">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Role</label>
+      <input class="modal-input" id="edit-role" value="Registered Nurse · Ward 4B">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Initials (shown in avatar)</label>
+      <input class="modal-input" id="edit-initials" value="AJ" maxlength="2">
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" style="flex:1" onclick="saveProfile()">Save changes</button>
+      <button class="btn" onclick="document.getElementById('edit-modal').classList.remove('show')">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// removed group chat + SOS functions safely
+// ── CLOCK
+function tick(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||12;document.getElementById('clock').textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}
+tick();setInterval(tick,30000);
+
+// ── TABS
+function tab(name,btn){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('panel-'+name).classList.add('on');
+}
+
+// ── PEER TABS
+function peerTab(name,btn){
+  document.querySelectorAll('.peer-tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.peer-section').forEach(s=>s.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ps-'+name).classList.add('on');
+}
+
+// ── FATIGUE CALC
+function calc(){
+  const e=+document.getElementById('sl-e').value;
+  const f=+document.getElementById('sl-f').value;
+  const s=+document.getElementById('sl-s').value;
+  document.getElementById('sv-e').textContent=e;
+  document.getElementById('sv-f').textContent=f;
+  document.getElementById('sv-s').textContent=s;
+  const score=parseFloat(((10-e)*0.4+(10-f)*0.35+s*0.25).toFixed(1));
+  document.getElementById('score-big').textContent=score;
+  document.getElementById('gfill').style.width=Math.min(score*10,100)+'%';
+  const tag=document.getElementById('status-tag');
+  const big=document.getElementById('score-big');
+  const al=document.getElementById('alert-strip');
+  const fill=document.getElementById('gfill');
+  if(score<5){tag.className='status-tag s-ok';tag.textContent='Within safe range';big.style.color='var(--teal)';fill.style.background='var(--teal)';al.classList.remove('show');}
+  else if(score<7){tag.className='status-tag s-warn';tag.textContent='Monitoring advised';big.style.color='var(--amber)';fill.style.background='var(--amber)';al.classList.remove('show');}
+  else{tag.className='status-tag s-crit';tag.textContent='Break recommended';big.style.color='var(--red)';fill.style.background='var(--red)';al.classList.add('show');}
+}
+function logCheckin(btn){btn.textContent='Logged ✓';btn.style.background='#2e7d32';btn.style.borderColor='#2e7d32';setTimeout(()=>{btn.textContent='Log check-in';btn.style.background='';btn.style.borderColor='';},2500);}
+
+// ── SCHEDULE CYCLING
+function cycleShift(el){
+  const cycle=['N','D','E','O'];
+  let current=el.dataset.shift||'O';
+  let idx=cycle.indexOf(current);
+  let next=cycle[(idx+1)%cycle.length];
+  el.dataset.shift=next;
+  el.className='sc sc-you';
+  const display=next==='O'?'—':next;
+  el.textContent=display;
+  if(next==='N')el.classList.add('sc-n');
+  else if(next==='D')el.classList.add('sc-d');
+  else if(next==='E')el.classList.add('sc-e');
+  else el.classList.add('sc-o');
+  el.classList.add('sc-you');
+}
+
+// ── DM
+let dmPeer='';
+function openDM(name,avClass,initials){
+  dmPeer=name;
+  document.getElementById('dm-title').textContent=name;
+  const av=document.getElementById('dm-av');
+  av.className='av '+avClass;
+  av.textContent=initials;
+  const msgs=document.getElementById('dm-msgs');
+  msgs.innerHTML=`<div class="msg msg-ai">Hey! What's up?<div class="msg-time">${nowTime()}</div></div>`;
+  document.getElementById('dm-modal').classList.add('show');
+  setTimeout(()=>document.getElementById('dm-input').focus(),100);
+}
+const dmReplies=["Of course, happy to help!","On my way.","Sure, give me 2 mins.","Yeah, I saw that too.","Thanks for letting me know!","Absolutely. Meet you there.","Copy that!","No worries, I've got it."];
+function sendDM(){
+  const inp=document.getElementById('dm-input');
+  const txt=inp.value.trim();if(!txt)return;
+  inp.value='';
+  const msgs=document.getElementById('dm-msgs');
+  msgs.innerHTML+=`<div class="msg msg-user">${esc(txt)}<div class="msg-time">${nowTime()}</div></div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    msgs.innerHTML+=`<div class="msg msg-ai">${dmReplies[Math.floor(Math.random()*dmReplies.length)]}<div class="msg-time">${nowTime()}</div></div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  },900+Math.random()*600);
+}
+
+// ── AI SUPPORT - MOCK RESPONSES
+const aiMockResponses=[
+  "That sounds really tough. You're carrying a lot right now, and it's completely valid to feel the weight of it. Take a moment — you've got this.",
+  "I hear you. Night shifts test us in ways most people don't understand. You're doing important work and it matters.",
+  "It's okay to feel overwhelmed sometimes. One breath at a time. You're stronger than you think.",
+  "Fatigue is real and your body is sending you signals. Listen to it. A short break might help more than you realize.",
+  "You're not alone in this. What you're feeling is shared by so many healthcare workers. Your wellbeing matters.",
+  "Let's break this down — is there one thing you can do right now to take care of yourself, even something small?",
+  "You're doing incredible work. Sometimes we just need to acknowledge how hard this is. How can I support you right now?",
+  "Night shifts have a way of isolating us. Remember that your crew is there, and so am I. What's on your mind?",
+  "Stress and fatigue go together, especially in your role. You're handling it with real courage.",
+  "It's brave of you to reach out. Let's talk through what's weighing on you — I'm right here with you."
+];
+
+let aiHistory=[];
+
+function callAI(userMsg){
+  aiHistory.push({role:'user',content:userMsg});
+  document.getElementById('ai-typing').classList.add('show');
+  const msgs=document.getElementById('ai-msgs');
+  msgs.scrollTop=msgs.scrollHeight;
+  
+  setTimeout(()=>{
+    document.getElementById('ai-typing').classList.remove('show');
+    const reply=aiMockResponses[Math.floor(Math.random()*aiMockResponses.length)];
+    aiHistory.push({role:'assistant',content:reply});
+    msgs.innerHTML+=`<div class="msg msg-ai">${esc(reply)}<div class="msg-time">${nowTime()}</div></div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  },1200+Math.random()*800);
+}
+
+function sendAI(){
+  const inp=document.getElementById('ai-input');
+  const txt=inp.value.trim();if(!txt)return;
+  inp.value='';
+  document.getElementById('quick-replies').style.display='none';
+  const msgs=document.getElementById('ai-msgs');
+  msgs.innerHTML+=`<div class="msg msg-user">${esc(txt)}<div class="msg-time">${nowTime()}</div></div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  callAI(txt);
+}
+
+function sendQR(btn){
+  document.getElementById('quick-replies').style.display='none';
+  const txt=btn.textContent;
+  const msgs=document.getElementById('ai-msgs');
+  msgs.innerHTML+=`<div class="msg msg-user">${esc(txt)}<div class="msg-time">${nowTime()}</div></div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  callAI(txt);
+}
+
+// ── TOGGLE SETTINGS
+function toggleSetting(el){
+  el.classList.toggle('on');
+  const setting=el.dataset.setting;
+  const isOn=el.classList.contains('on');
+  console.log(`${setting}: ${isOn?'enabled':'disabled'}`);
+}
+
+// ── EDIT PROFILE
+function openEditModal(){
+  document.getElementById('edit-name').value=document.getElementById('profile-name').textContent;
+  document.getElementById('edit-role').value=document.getElementById('profile-role').textContent;
+  document.getElementById('edit-initials').value=document.getElementById('profile-avatar').textContent;
+  document.getElementById('edit-modal').classList.add('show');
+}
+function saveProfile(){
+  document.getElementById('profile-name').textContent=document.getElementById('edit-name').value;
+  document.getElementById('profile-role').textContent=document.getElementById('edit-role').value;
+  document.getElementById('profile-avatar').textContent=document.getElementById('edit-initials').value.toUpperCase();
+  document.getElementById('edit-modal').classList.remove('show');
+}
+
+// ── UTILS
+function nowTime(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||11;return(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 </script>
+</body>
+</html>
