@@ -6,41 +6,41 @@ created on 26th Apirl 2026
 NightShift Buddy is an easy-to-use web application that helps healthcare professionals cope better with their night shifts. The key features of the app are fatigue management, mental wellness assistance, and effective shift scheduling.
 
 ## ✨ Features
-# 🧠 Fatigue Management
+### 🧠 Fatigue Management
 Current fatigue level calculated using energy, concentration, and stress indicators
 Visual scale with risk threshold  
 Automatic notifications when the fatigue rate exceeds safety limits  
 (formula for fatigue for nerds: Fatigue=(10−Energy)×0.4+(10−Focus)×0.35+Stress×0.25) 
-# 📋 Handoff Board
+### 📋 Handoff Board
 Effective tracking of patient updates
 Task categorization according to urgency: critical, waiting, done
 Improving communication between shift workers
-# 📅 Intelligent Shift Calendar
+### 📅 Intelligent Shift Calendar
 Interactive shift schedule (night, day, evening, off-duty)
 Visualization of team cooperation
 Suggestions for sleep based on shift patterns
-# 🤖 AI Assistance (Mental Wellness)
+### 🤖 AI Assistance (Mental Wellness)
 Private and anonymous AI conversation
 Rapid replies on typical stress scenarios
 Aids in preventing isolation from colleagues
-# ⚙️ Customization Options
+### ⚙️ Customization Options
 Reminders to take breaks option
 Notifications about fatigue option
 AI assistance option
-# 📊 Individualized Dashboard
+### 📊 Individualized Dashboard
 Monitoring of fatigue rates through consistent check-ins (similar to study habits)
 Streak system
 User-friendly profile modification
-# 🛠️ Technology Stack
+### 🛠️ Technology Stack
 HTML5 – Layout
 CSS3 – Styling (user-friendly UI, responsive design)
 Vanilla JavaScript – Functionality and interaction
-# 📱 User Experience Design
+### 📱 User Experience Design
 Simple, minimalist interface
 Mobile-first strategy
 Efficient and fast, no library dependency
 Built with practical hospital conditions in mind
-# 🎯 Problem Statement
+### 🎯 Problem Statement
 
 Night-shift healthcare professionals frequently experience:
 
@@ -52,21 +52,37 @@ NightShift Buddy offers an efficient remedy to these issues.
 
 📌 Demo
 
-# 🔗 Live Project:
+### 🔗 Live Project:
 https://oreowarrior.github.io/nightshift-buddy/
 
-# 👨‍💻 Author
+### 👨‍💻 Author
 
 Oreo Warrior
 
 GitHub: https://github.com/OreoWarrior
 YouTube: https://www.youtube.com/@Oreo_Warrior
 Modrinth: https://modrinth.com/user/Oreo_Warrior
-# ❤️ Acknowledgment
+### ❤️ Acknowledgment
 
 Built with the goal of supporting those who work when the world sleeps.
 Healthcare workers deserve better tools, better support, and better care.
 
-# 📜 License
+### 📜 License
 
 This project is open-source and free to use for educational and non-commercial purposes.
+# 📲 Screenshots
+<img width="2548" height="1402" alt="image" src="https://github.com/user-attachments/assets/5b15a1b0-999f-4eee-8f9e-6161adc6d2fa" />
+<img width="2548" height="1402" alt="image" src="https://github.com/user-attachments/assets/a5b5fe5a-00cb-424b-b7ec-e110f15130a8" />
+<img width="2548" height="1402" alt="image" src="https://github.com/user-attachments/assets/d642bd4c-d6aa-44ac-bf97-5f77b148d36a" />
+<img width="2548" height="1402" alt="image" src="https://github.com/user-attachments/assets/c6e7bd9c-b913-4a6f-8b97-d4b41f94b81b" />
+<img width="2548" height="1402" alt="image" src="https://github.com/user-attachments/assets/536276a0-2463-4a9d-b307-4ce90234d9bc" />
+<img width="2372" height="1617" alt="image" src="https://github.com/user-attachments/assets/d8d26bee-181d-4027-84f0-8c9408dc7cb0" />
+
+
+# MADE BY A COOL GUY
+
+
+
+
+
+
