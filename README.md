@@ -10,6 +10,7 @@ NightShift Buddy is an easy-to-use web application that helps healthcare profess
 Current fatigue level calculated using energy, concentration, and stress indicators
 Visual scale with risk threshold  
 Automatic notifications when the fatigue rate exceeds safety limits  
+
 (formula for fatigue for nerds: Fatigue=(10−Energy)×0.4+(10−Focus)×0.35+Stress×0.25) 
 ### 📋 Handoff Board
 Effective tracking of patient updates
