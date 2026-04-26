@@ -192,13 +192,17 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
 .sday-off{background:var(--surface2);border:0.5px solid var(--border)}
 .sday-today{background:var(--teal);color:#fff;border:none}
 
+.edit-profile-btn{width:100%;padding:11px;border-radius:10px;background:var(--surface);border:0.5px solid var(--border2);font-family:var(--mono);font-size:12px;color:var(--muted);cursor:pointer;transition:all 0.13s;letter-spacing:0.03em}
+.edit-profile-btn:hover{background:var(--surface2);color:var(--ink)}
+
 /* ABOUT US PAGE */
 .about-us-hero{background:var(--surface);border:0.5px solid var(--border2);border-radius:14px;padding:24px;margin-bottom:14px;text-align:center}
-.au-avatar{width:100px;height:100px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600;font-family:var(--mono);color:#fff;margin:0 auto 16px}
+.au-avatar{width:100px;height:100px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600;font-family:var(--mono);color:#fff;margin:0 auto 16px;overflow:hidden;object-fit:cover}
+.au-avatar img{width:100%;height:100%;object-fit:cover}
 .au-name{font-size:22px;font-weight:600;color:var(--ink);margin-bottom:4px}
 .au-title{font-size:13px;color:var(--teal);margin-bottom:12px;font-family:var(--mono)}
 .au-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:12px}
-.au-social{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.au-social{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
 .au-social a{font-family:var(--mono);font-size:11px;padding:6px 14px;border-radius:8px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--teal);text-decoration:none;transition:all 0.15s}
 .au-social a:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
 
@@ -443,12 +447,12 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
     <div class="panel" id="panel-about">
       <div class="about-hero">
         <div>
-          <div class="about-name" id="profile-name" onclick="openEdit('name')">Alex Johnson</div>
-          <div class="about-role" id="profile-role" onclick="openEdit('role')">Registered Nurse · Ward 4B</div>
+          <div class="about-name" id="profile-name" onclick="openNameEdit()">Alex Johnson</div>
+          <div class="about-role" id="profile-role" onclick="openRoleEdit()">Registered Nurse · Ward 4B</div>
           <div class="about-badges">
-            <span class="badge badge-teal" onclick="openEdit('badge', 0)">Night shift</span>
-            <span class="badge badge-blue" onclick="openEdit('badge', 1)">3 yrs experience</span>
-            <span class="badge badge-amber" onclick="openEdit('badge', 2)">ICU trained</span>
+            <span class="badge badge-teal" onclick="editBadge(0)">Night shift</span>
+            <span class="badge badge-blue" onclick="editBadge(1)">3 yrs experience</span>
+            <span class="badge badge-amber" onclick="editBadge(2)">ICU trained</span>
           </div>
         </div>
       </div>
@@ -456,10 +460,10 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
       <div class="about-grid">
         <div class="about-card">
           <div class="about-card-head">Shift stats</div>
-          <div class="about-row"><div class="about-lbl">Shifts this month</div><div class="about-val" onclick="openEdit('stat', 0)">12</div></div>
-          <div class="about-row"><div class="about-lbl">Night shifts</div><div class="about-val" onclick="openEdit('stat', 1)">9</div></div>
-          <div class="about-row"><div class="about-lbl">Avg fatigue score</div><div class="about-val" style="color:var(--teal)" onclick="openEdit('stat', 2)">3.2</div></div>
-          <div class="about-row" style="border:none"><div class="about-lbl">Check-in streak</div><div class="about-val" style="color:var(--green)" onclick="openEdit('stat', 3)">7 days</div></div>
+          <div class="about-row"><div class="about-lbl">Shifts this month</div><div class="about-val" onclick="editStat(0, 'Shifts this month')">12</div></div>
+          <div class="about-row"><div class="about-lbl">Night shifts</div><div class="about-val" onclick="editStat(1, 'Night shifts')">9</div></div>
+          <div class="about-row"><div class="about-lbl">Avg fatigue score</div><div class="about-val" style="color:var(--teal)" onclick="editStat(2, 'Avg fatigue score')">3.2</div></div>
+          <div class="about-row" style="border:none"><div class="about-lbl">Check-in streak</div><div class="about-val" style="color:var(--green)" onclick="editStat(3, 'Check-in streak')">7 days</div></div>
         </div>
         <div class="about-card">
           <div class="about-card-head">Custom Settings</div>
@@ -507,6 +511,8 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
         <div class="au-desc">Passionate about building tools that support healthcare workers during challenging night shifts. Dedicated to creating intuitive, human-centered solutions for mental wellness and fatigue management.</div>
         <div class="au-social">
           <a href="https://github.com/OreoWarrior" target="_blank">GitHub</a>
+          <a href="https://www.youtube.com/@Oreo_Warrior" target="_blank">YouTube</a>
+          <a href="https://modrinth.com/user/Oreo_Warrior" target="_blank">Modrinth</a>
           <a href="mailto:contact@nightshift.dev">Email</a>
         </div>
       </div>
@@ -553,13 +559,13 @@ body{background:#dddcd8;min-height:100vh;display:flex;align-items:flex-start;jus
   </div>
 </div>
 
-<!-- EDIT MODAL -->
+<!-- EDIT MODALS -->
 <div class="modal-overlay" id="edit-modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-head" id="modal-title">Edit</div>
     <div class="modal-field">
       <label class="modal-label" id="modal-label">Value</label>
-      <input class="modal-input" id="modal-input" type="text" onkeydown="if(event.key==='Enter')saveEdit()">
+      <input class="modal-input" id="modal-input" type="text">
     </div>
     <div class="modal-actions">
       <button class="btn primary" style="flex:1" onclick="saveEdit()">Save</button>
@@ -582,7 +588,7 @@ const aiMockResponses=[
   "It's brave of you to reach out. Let's talk through what's weighing on you — I'm right here with you."
 ];
 
-let editMode='', editIdx=0;
+let editMode='',editIdx=0;
 
 function tick(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||12;document.getElementById('clock').textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}
 tick();setInterval(tick,30000);
@@ -591,34 +597,29 @@ function tab(name,btn){document.querySelectorAll('.nav-btn').forEach(b=>b.classL
 
 function peerTab(name,btn){document.querySelectorAll('.peer-tab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.peer-section').forEach(s=>s.classList.remove('on'));btn.classList.add('on');document.getElementById('ps-'+name).classList.add('on');}
 
-function calc(){const e=+document.getElementById('sl-e').value,f=+document.getElementById('sl-f').value,s=+document.getElementById('sl-s').value;document.getElementById('sv-e').textContent=e;document.getElementById('sv-f').textContent=f;document.getElementById('sv-s').textContent=s;const score=parseFloat(((10-e)*0.4+(10-f)*0.35+s*0.25).toFixed(1));document.getElementById('score-big').textContent=score;document.getElementById('gfill').style.width=Math.min(score*10,100)+'%';const tag=document.getElementById('status-tag'),big=document.getElementById('score-big'),al=document.getElementById('alert-strip'),fill=document.getElementById('gfill');if(score<5){tag.className='status-tag s-ok';tag.textContent='Within safe range';big.style.color='var(--teal)';fill.style.background='var(--teal)';al.classList.remove('show');}else if(score<7){tag.className='status-tag s-warn';tag.textContent='Monitoring advised';big.style.color='var(--amber)';fill.style.background='var(--amber)';al.classList.remove('show');}else{tag.className='status-tag s-crit';tag.textContent='Break recommended';big.style.color='var(--red)';fill.style.background='var(--red)';al.classList.add('show');}}
-
+function calc(){const e=+document.getElementById('sl-e').value;const f=+document.getElementById('sl-f').value;const s=+document.getElementById('sl-s').value;document.getElementById('sv-e').textContent=e;document.getElementById('sv-f').textContent=f;document.getElementById('sv-s').textContent=s;const score=parseFloat(((10-e)*0.4+(10-f)*0.35+s*0.25).toFixed(1));document.getElementById('score-big').textContent=score;document.getElementById('gfill').style.width=Math.min(score*10,100)+'%';const tag=document.getElementById('status-tag');const big=document.getElementById('score-big');const al=document.getElementById('alert-strip');const fill=document.getElementById('gfill');if(score<5){tag.className='status-tag s-ok';tag.textContent='Within safe range';big.style.color='var(--teal)';fill.style.background='var(--teal)';al.classList.remove('show');}else if(score<7){tag.className='status-tag s-warn';tag.textContent='Monitoring advised';big.style.color='var(--amber)';fill.style.background='var(--amber)';al.classList.remove('show');}else{tag.className='status-tag s-crit';tag.textContent='Break recommended';big.style.color='var(--red)';fill.style.background='var(--red)';al.classList.add('show');}}
 function logCheckin(btn){btn.textContent='Logged ✓';btn.style.background='#2e7d32';btn.style.borderColor='#2e7d32';setTimeout(()=>{btn.textContent='Log check-in';btn.style.background='';btn.style.borderColor='';},2500);}
 
-function toggleTask(el){el.classList.toggle('ch-done');if(!el.classList.contains('ch-done')){const hasRecheck=el.textContent.includes('recheck')||el.textContent.includes('Temp');el.classList.add(hasRecheck?'ch-urg':'ch-pend');}else{el.classList.remove('ch-urg','ch-pend');}}
-
+function toggleTask(el){el.classList.toggle('ch-done');if(!el.classList.contains('ch-done')){el.classList.add(el.textContent.includes('recheck')?'ch-urg':'ch-pend');}else{el.classList.remove('ch-urg','ch-pend');}}
 function addNote(){const n=prompt('Add handoff note:');if(n)alert('✓ Note added');}
-
 function markAllDone(){document.querySelectorAll('.chip').forEach(c=>{c.classList.add('ch-done');c.classList.remove('ch-urg','ch-pend');});alert('✓ All marked reviewed');}
 
 function cycleShift(el){const cycle=['N','D','E','O'];let idx=cycle.indexOf(el.dataset.shift||'O');let next=cycle[(idx+1)%4];el.dataset.shift=next;el.textContent=next==='O'?'—':next;el.className='sc sc-you';el.classList.add('sc-'+next.toLowerCase());}
 
 function callAI(msg){document.getElementById('ai-typing').classList.add('show');const msgs=document.getElementById('ai-msgs');msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>{document.getElementById('ai-typing').classList.remove('show');const r=aiMockResponses[Math.floor(Math.random()*10)];msgs.innerHTML+=`<div class="msg msg-ai">${esc(r)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;},1000+Math.random()*500);}
-
-function sendAI(){const inp=document.getElementById('ai-input'),txt=inp.value.trim();if(!txt)return;inp.value='';document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class="msg msg-user">${esc(txt)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(txt);}
-
+function sendAI(){const inp=document.getElementById('ai-input');const txt=inp.value.trim();if(!txt)return;inp.value='';document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class="msg msg-user">${esc(txt)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(txt);}
 function sendQR(btn){document.getElementById('quick-replies').style.display='none';const msgs=document.getElementById('ai-msgs');msgs.innerHTML+=`<div class="msg msg-user">${esc(btn.textContent)}<div class="msg-time">${nowTime()}</div></div>`;msgs.scrollTop=msgs.scrollHeight;callAI(btn.textContent);}
 
 function toggleSetting(el){el.classList.toggle('on');}
 
-function openEdit(mode, idx=0){editMode=mode;editIdx=idx;const titles={name:'Edit name',role:'Edit role',badge:'Edit badge',stat:'Edit stat'};const labels={name:'Full name',role:'Role',badge:'Badge text',stat:'Stat value'};document.getElementById('modal-title').textContent=titles[mode];document.getElementById('modal-label').textContent=labels[mode];if(mode==='name'){document.getElementById('modal-input').value=document.getElementById('profile-name').textContent;}else if(mode==='role'){document.getElementById('modal-input').value=document.getElementById('profile-role').textContent;}else if(mode==='badge'){document.getElementById('modal-input').value=document.querySelectorAll('.badge')[idx].textContent;}else if(mode==='stat'){document.getElementById('modal-input').value=document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[idx].textContent;}document.getElementById('edit-modal').classList.add('show');setTimeout(()=>document.getElementById('modal-input').focus(),100);}
-
-function saveEdit(){const val=document.getElementById('modal-input').value.trim();if(!val){alert('Please enter a value');return;}if(editMode==='name'){document.getElementById('profile-name').textContent=val;}else if(editMode==='role'){document.getElementById('profile-role').textContent=val;}else if(editMode==='badge'){document.querySelectorAll('.badge')[editIdx].textContent=val;}else if(editMode==='stat'){document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[editIdx].textContent=val;}closeModal();}
-
+function openNameEdit(){editMode='name';document.getElementById('modal-title').textContent='Edit name';document.getElementById('modal-label').textContent='Full name';document.getElementById('modal-input').value=document.getElementById('profile-name').textContent;document.getElementById('edit-modal').classList.add('show');}
+function openRoleEdit(){editMode='role';document.getElementById('modal-title').textContent='Edit role';document.getElementById('modal-label').textContent='Role';document.getElementById('modal-input').value=document.getElementById('profile-role').textContent;document.getElementById('edit-modal').classList.add('show');}
+function editBadge(idx){editMode='badge';editIdx=idx;document.getElementById('modal-title').textContent='Edit badge';document.getElementById('modal-label').textContent='Badge text';document.getElementById('modal-input').value=document.querySelectorAll('.badge')[idx].textContent;document.getElementById('edit-modal').classList.add('show');}
+function editStat(idx,lbl){editMode='stat';editIdx=idx;document.getElementById('modal-title').textContent='Edit '+lbl;document.getElementById('modal-label').textContent=lbl;document.getElementById('modal-input').value=document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[idx].textContent;document.getElementById('edit-modal').classList.add('show');}
+function saveEdit(){const val=document.getElementById('modal-input').value;if(!val.trim()){alert('Please enter a value');return;}if(editMode==='name'){document.getElementById('profile-name').textContent=val;}else if(editMode==='role'){document.getElementById('profile-role').textContent=val;}else if(editMode==='badge'){document.querySelectorAll('.badge')[editIdx].textContent=val;}else if(editMode==='stat'){document.querySelectorAll('.about-card')[0].querySelectorAll('.about-val')[editIdx].textContent=val;}closeModal();}
 function closeModal(){document.getElementById('edit-modal').classList.remove('show');}
 
 function nowTime(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||11;return(h<10?'0':'')+h+':'+(m<10?'0':'')+m+' '+ap;}
-
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 </script>
 </body>
