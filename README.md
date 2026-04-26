@@ -3,7 +3,7 @@ created on 26th Apirl 2026
 # ----------------------
 🚀 Introduction
 
-NightShift Buddy is an easy-to-use web application that helps  professionals cope better with their night shifts. The key features of the app are fatigue management, mental wellness assistance, and effective shift scheduling.
+NightShift Buddy is a simple yet efficient web-based tool that allows professionals to manage their night shift issues effectively through fatigue management services, mental well-being support, and efficient shift planning, while saving data for future use by its users.
 
 ## ✨ Features
 ### 🧠 Fatigue Management
