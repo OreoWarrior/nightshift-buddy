@@ -20,7 +20,7 @@ Improving communication between shift workers
 Interactive shift schedule (night, day, evening, off-duty)
 Visualization of team cooperation
 Suggestions for sleep based on shift patterns
-### 🤖 AI Assistance (Mental Wellness)
+### 🤖 Simulated AI responses for demo purposes
 Private and anonymous AI conversation
 Rapid replies on typical stress scenarios
 Aids in preventing isolation from colleagues
