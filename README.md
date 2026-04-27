@@ -80,7 +80,7 @@ This project is open-source and free to use for educational and non-commercial p
 <img width="2372" height="1617" alt="image" src="https://github.com/user-attachments/assets/d8d26bee-181d-4027-84f0-8c9408dc7cb0" />
 
 
-# MADE BY A COOL GUY
+# Built by Oreo Warrior
 
 
 
